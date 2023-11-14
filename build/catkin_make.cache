@@ -1,2 +1,2 @@
 my_robot
--DCATKIN_DEVEL_PREFIX=/home/ubuntu/Desktop/ws/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/ubuntu/Desktop/ws/catkin_ws/install -G Unix Makefiles
+-DCATKIN_DEVEL_PREFIX=/home/ubuntu/Desktop/catkin_ws/ChaseIt/devel -DCMAKE_INSTALL_PREFIX=/home/ubuntu/Desktop/catkin_ws/ChaseIt/install -G Unix Makefiles

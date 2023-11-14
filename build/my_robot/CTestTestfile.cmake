@@ -1,6 +1,6 @@
 # CMake generated Testfile for 
-# Source directory: /home/ubuntu/Desktop/ws/catkin_ws/src/my_robot
-# Build directory: /home/ubuntu/Desktop/ws/catkin_ws/build/my_robot
+# Source directory: /home/ubuntu/Desktop/catkin_ws/ChaseIt/src/my_robot
+# Build directory: /home/ubuntu/Desktop/catkin_ws/ChaseIt/build/my_robot
 # 
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.

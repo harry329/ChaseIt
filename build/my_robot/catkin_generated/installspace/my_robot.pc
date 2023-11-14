@@ -1,4 +1,4 @@
-prefix=/home/ubuntu/Desktop/ws/catkin_ws/install
+prefix=/home/ubuntu/Desktop/catkin_ws/ChaseIt/install
 
 Name: my_robot
 Description: Description of my_robot

@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ubuntu/Desktop/ws/catkin_ws/src
+CMAKE_SOURCE_DIR = /home/ubuntu/Desktop/catkin_ws/ChaseIt/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ubuntu/Desktop/ws/catkin_ws/build
+CMAKE_BINARY_DIR = /home/ubuntu/Desktop/catkin_ws/ChaseIt/build
 
 # Utility rule file for run_tests.
 
@@ -67,6 +67,6 @@ CMakeFiles/run_tests.dir/clean:
 .PHONY : CMakeFiles/run_tests.dir/clean
 
 CMakeFiles/run_tests.dir/depend:
-	cd /home/ubuntu/Desktop/ws/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/Desktop/ws/catkin_ws/src /home/ubuntu/Desktop/ws/catkin_ws/src /home/ubuntu/Desktop/ws/catkin_ws/build /home/ubuntu/Desktop/ws/catkin_ws/build /home/ubuntu/Desktop/ws/catkin_ws/build/CMakeFiles/run_tests.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/ubuntu/Desktop/catkin_ws/ChaseIt/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/Desktop/catkin_ws/ChaseIt/src /home/ubuntu/Desktop/catkin_ws/ChaseIt/src /home/ubuntu/Desktop/catkin_ws/ChaseIt/build /home/ubuntu/Desktop/catkin_ws/ChaseIt/build /home/ubuntu/Desktop/catkin_ws/ChaseIt/build/CMakeFiles/run_tests.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/run_tests.dir/depend
 

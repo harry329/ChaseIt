@@ -7,8 +7,8 @@
 # new environment variables
 
 # modified environment variables
-export CMAKE_PREFIX_PATH="/home/ubuntu/Desktop/ws/catkin_ws/devel:$CMAKE_PREFIX_PATH"
+export CMAKE_PREFIX_PATH="/home/ubuntu/Desktop/catkin_ws/ChaseIt/devel:$CMAKE_PREFIX_PATH"
 export LD_LIBRARY_PATH='/opt/ros/noetic/lib:/usr/local/cuda-12.2/lib64:'
-export PWD='/home/ubuntu/Desktop/ws/catkin_ws/build'
-export ROSLISP_PACKAGE_DIRECTORIES='/home/ubuntu/Desktop/ws/catkin_ws/devel/share/common-lisp'
-export ROS_PACKAGE_PATH="/home/ubuntu/Desktop/ws/catkin_ws/src:$ROS_PACKAGE_PATH"
+export PWD='/home/ubuntu/Desktop/catkin_ws/ChaseIt/build'
+export ROSLISP_PACKAGE_DIRECTORIES='/home/ubuntu/Desktop/catkin_ws/ChaseIt/devel/share/common-lisp'
+export ROS_PACKAGE_PATH="/home/ubuntu/Desktop/catkin_ws/ChaseIt/src:$ROS_PACKAGE_PATH"
