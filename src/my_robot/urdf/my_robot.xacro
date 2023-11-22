@@ -137,5 +137,62 @@
     <dynamics damping="1.0" friction="1.0"/>
   </joint>
   
+  
+   <!-- Camera link -->
+  <link name="camera">
+  <visual>
+    <geometry>
+      <box size="0.05 0.05 0.05"/>
+    </geometry>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </visual>
+  <collision>
+    <geometry>
+      <box size="0.05 0.05 0.05"/>
+    </geometry>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </collision>
+  <inertial>
+    <mass value="0.1"/>
+    <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/>
+  </inertial>
+  </link>
+  
+  <!-- Camera joint -->
+ <joint name="camera_joint" type="fixed">
+  <axis xyz="0 1 0"/>
+  <origin xyz="0.2 0 0" rpy="0 0 0"/>
+  <parent link="chassis"/>
+  <child link="camera"/>
+ </joint>
+  
+  
+  <!-- Hokuyo lidar sensor link -->
+  <link name="hokuyo">
+  <visual>
+    <geometry>
+      <mesh filename="package://my_robot/meshes/hokuyo.dae"/>
+    </geometry>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </visual>
+  <collision>
+    <geometry>
+      <box size="0.1 0.1 0.1"/>
+    </geometry>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </collision>
+  <inertial>
+    <mass value="1e-5"/>
+    <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/>
+  </inertial>
+  </link>
+  
+  <!-- Hokuyo lidar sensor joint -->
+  <joint name="hokuyo_joint" type="fixed">
+  <axis xyz="0 1 0"/>
+  <origin xyz="0.15 0 0.1" rpy="0 0 0"/>
+  <parent link="chassis"/>
+  <child link="hokuyo"/>
+  </joint>
 
 </robot>
