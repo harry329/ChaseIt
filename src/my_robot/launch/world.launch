@@ -3,8 +3,8 @@
   <!-- World File -->
   <arg name="world_file" default="$(find my_robot)/worlds/building.world"/>
   
-   <arg name="x" default="0"/>
-  <arg name="y" default="0"/>
+   <arg name="x" default="5.45"/>
+  <arg name="y" default="-5.65"/>
   <arg name="z" default="0"/>
   <arg name="roll" default="0"/>
   <arg name="pitch" default="0"/>
