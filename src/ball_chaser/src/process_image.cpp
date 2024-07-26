@@ -70,7 +70,7 @@ int main(int argc, char** argv)
     client = n.serviceClient<ball_chaser::DriveToTarget>("/ball_chaser/command_robot");
 
     // Subscribe to /camera/rgb/image_raw topic to read the image data inside the process_image_callback function
-    ros::Subscriber sub1 = n.subscribe("/camera/rgb/image_raw", 10, process_image_callback);
+    ros::Subscriber sub1 = n.subscribe("/rgb/image_raw", 10, process_image_callback);
 
     // Handle ROS communication events
     ros::spin();
