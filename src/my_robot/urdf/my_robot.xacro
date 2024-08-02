@@ -2,7 +2,7 @@
   <xacro:include filename="$(find my_robot)/urdf/my_robot.gazebo" />
   <link name="robot_footprint"></link>
 
-  <joint name="robot_footprint_joint" type="fixed">
+  <joint name="robot_footprint" type="fixed">
     <origin xyz="0 0 0" rpy="0 0 0" />
     <parent link="robot_footprint"/>
     <child link="chassis" />
@@ -211,5 +211,21 @@
   <parent link="chassis"/>
   <child link="hokuyo"/>
   </joint>
+
+    <gazebo reference="left_wheel">
+    <material>Gazebo/Red</material>
+  </gazebo>
+
+  <gazebo reference="right_wheel">
+    <material>Gazebo/Red</material>
+  </gazebo>
+
+  <gazebo reference="chassis">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+
+  <gazebo reference="camera">
+    <material>Gazebo/Black</material>
+  </gazebo>
 
 </robot>
