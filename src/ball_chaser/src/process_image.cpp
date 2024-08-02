@@ -8,79 +8,68 @@ ros::ServiceClient client;
 // This function calls the command_robot service to drive the robot in the specified direction
 void drive_robot(float lin_x, float ang_z)
 {
-    // TODO: Request a service and pass the velocities to it to drive the robot
-    ball_chaser::DriveToTarget srv;
-    srv.joint_1 = lin_x
-    srv.joint_2 = ang_z
-    ROS_INFO("process_image_callback drive_robot 1.1");
-    if(!client.call(srv))
-        ROS_INFO("process_image_callback drive_robot 1.2");
-        ROS_ERROR("Failed to call service drive_bot");
+  ROS_INFO_STREAM("Try sending request to move the robot.");
+
+  // Create a request
+  ball_chaser::DriveToTarget srv;
+  srv.request.linear_x = lin_x;
+  srv.request.angular_z = ang_z;
+
+  // Call the command_robot service with request values given above
+  if (!client.call(srv))
+    ROS_ERROR("Failed to call service /ball_chaser/command_robot");
 }
 
 // This callback function continuously executes and reads the image data
-void process_image_callback(const sensor_msgs::Image img)
+void process_image_callback(const sensor_msgs::Image& img)
 {
-    // TODO: Loop through each pixel in the image and check if there's a bright white one
-    // Then, identify if this pixel falls in the left, mid, or right side of the image
-    // Depending on the white ball position, call the drive_bot function and pass velocities to it
-    // Request a stop when there's no white ball seen by the camera
-    int white_pixel = 255;
-    bool move_robot = false;
-    bool white_pixel_found = false;
-    int left_boundary = img.width / 3;
-    int right_boundary = 2 * img.width / 3;
-    ROS_INFO("process_image_callback 1.1");
-    // Loop through each pixel in the image and check if there's a bright white one
-    for (int i = 0; i < img.height * img.step; i += 3) {
-        ROS_INFO("process_image_callback 1.2");
-        if (img.data[i] == white_pixel && img.data[i+1] == white_pixel && img.data[i+2] == white_pixel) {
-            white_pixel_found = true;
-            ROS_INFO("process_image_callback 1.3");
-            // Identify if this pixel falls in the left, mid, or right side of the image
-            int pixel_position = (i % (img.width * img.step)) / 3;
+  enum Side : uint8_t {LEFT, MID, RIGHT, NO_BALL} side = NO_BALL;
 
-            if (pixel_position < left_boundary) {
-                ROS_INFO("process_image_callback 1.4");
-                // White pixel is in the left side of the image
-                drive_bot(0.5, 1.0); // Example velocities, adjust as needed
-            } else if (pixel_position < right_boundary) {
-                // White pixel is in the middle of the image
-                ROS_INFO("process_image_callback 1.5");
-                drive_bot(0.5, 0.0); // Example velocities, adjust as needed
-            } else {
-                // White pixel is in the right side of the image
-                ROS_INFO("process_image_callback 1.6");
-                drive_bot(0.5, -1.0); // Example velocities, adjust as needed
-            }
-            ROS_INFO("process_image_callback 1.7");
-            move_robot = true;
-            break; // Break the loop once a white pixel is found and action is taken
-        }
+  // Determine if there is a white ball and if yes, on which side
+  for (int i = 0; i < img.height * img.step; i+=3) {
+    auto red   = img.data[i];
+    auto green = img.data[i+1];
+    auto blue  = img.data[i+2];
+
+    if (red == 255 && green == 255 && blue == 255) {
+      auto col = i % img.step;
+      if (col < img.step * 0.4) {
+        side = LEFT;
+      } else if (col > img.step * 0.6) {
+        side = RIGHT;
+      } else {
+        side = MID;
+      }
+      break;
     }
+  }
 
-    // Request a stop when there's no white ball seen by the camera
-    if (!white_pixel_found) {
-        ROS_INFO("process_image_callback 1.8");
-        drive_bot(0.0, 0.0); // Stop the robot
-    }
-
+  // Drive robot towards the ball
+  if (side == LEFT) {
+    drive_robot(0.5, 1.0);
+  } else if (side == RIGHT) {
+    drive_robot(0.5, -1.0);
+  } else if (side == MID) {
+    drive_robot(0.5, 0.0);
+  } else /* NO_BALL */ {
+    drive_robot(0.0, 0.0);
+  }
 }
 
 int main(int argc, char** argv)
 {
-    // Initialize the process_image node and create a handle to it
-    ros::init(argc, argv, "process_image");
-    ros::NodeHandle n;
+  // Initialize the process_image node and create a handle to it
+  ros::init(argc, argv, "process_image");
+  ros::NodeHandle n;
 
-    // Define a client service capable of requesting services from command_robot
-    client = n.serviceClient<ball_chaser::DriveToTarget>("/ball_chaser/command_robot");
+  // Define a client service capable of requesting services from command_robot
+  client = n.serviceClient<ball_chaser::DriveToTarget>("/ball_chaser/command_robot");
 
-    // Subscribe to /camera/rgb/image_raw topic to read the image data inside the process_image_callback function
-    ros::Subscriber sub1 = n.subscribe("/camera/rgb/image_raw", 10, process_image_callback);
-    ROS_INFO("process_image main");
-    // Handle ROS communication events
-    ros::spin();
+  // Subscribe to /camera/rgb/image_raw topic to read the image data inside the process_image_callback function
+  ros::Subscriber sub1 = n.subscribe("/camera/rgb/image_raw", 10, process_image_callback);
 
-    return 0;
+  // Handle ROS communication events
+  ros::spin();
+
+  return 0;
 }
