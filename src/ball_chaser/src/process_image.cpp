@@ -12,7 +12,9 @@ void drive_robot(float lin_x, float ang_z)
     ball_chaser::DriveToTarget srv;
     srv.joint_1 = lin_x
     srv.joint_2 = ang_z
+    ROS_INFO("process_image_callback drive_robot 1.1");
     if(!client.call(srv))
+        ROS_INFO("process_image_callback drive_robot 1.2");
         ROS_ERROR("Failed to call service drive_bot");
 }
 
@@ -28,26 +30,30 @@ void process_image_callback(const sensor_msgs::Image img)
     bool white_pixel_found = false;
     int left_boundary = img.width / 3;
     int right_boundary = 2 * img.width / 3;
-
+    ROS_INFO("process_image_callback 1.1");
     // Loop through each pixel in the image and check if there's a bright white one
     for (int i = 0; i < img.height * img.step; i += 3) {
+        ROS_INFO("process_image_callback 1.2");
         if (img.data[i] == white_pixel && img.data[i+1] == white_pixel && img.data[i+2] == white_pixel) {
             white_pixel_found = true;
-
+            ROS_INFO("process_image_callback 1.3");
             // Identify if this pixel falls in the left, mid, or right side of the image
             int pixel_position = (i % (img.width * img.step)) / 3;
 
             if (pixel_position < left_boundary) {
+                ROS_INFO("process_image_callback 1.4");
                 // White pixel is in the left side of the image
                 drive_bot(0.5, 1.0); // Example velocities, adjust as needed
             } else if (pixel_position < right_boundary) {
                 // White pixel is in the middle of the image
+                ROS_INFO("process_image_callback 1.5");
                 drive_bot(0.5, 0.0); // Example velocities, adjust as needed
             } else {
                 // White pixel is in the right side of the image
+                ROS_INFO("process_image_callback 1.6");
                 drive_bot(0.5, -1.0); // Example velocities, adjust as needed
             }
-
+            ROS_INFO("process_image_callback 1.7");
             move_robot = true;
             break; // Break the loop once a white pixel is found and action is taken
         }
@@ -55,6 +61,7 @@ void process_image_callback(const sensor_msgs::Image img)
 
     // Request a stop when there's no white ball seen by the camera
     if (!white_pixel_found) {
+        ROS_INFO("process_image_callback 1.8");
         drive_bot(0.0, 0.0); // Stop the robot
     }
 
